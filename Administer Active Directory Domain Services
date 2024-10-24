@@ -1,9 +1,16 @@
 Below are the step by step instructions on how you can set up an Active Directory domain, a domain host, an a user as an example. Some of these instructions are derived off of Microsoft's Active Directory Guided Project, hence the similar naming convention. 
 
-However, there are key differences, including the fact that Microsoft's project requires the use of Hyper-V (which I don't have since I only have Windows Home Edition).
+However, there are key differences, including the fact that Microsoft's project requires the use of Hyper-V (which I don't have access to since I own Windows Home Edition).
 
-Software you will need:
+Software tools you will need:
 
-1. Oracle VirtualBox                   [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
-2. WWindows 2022 Server Edition ISO    [Windows 2022 Server Edition](https://www.microsoft.com/en-us/evalcenter/download-windows-server-2022)
-3. WIndows 10 ISO                      [Windows 10](https://www.microsoft.com/en-us/software-download/windows10)
+  1. Oracle VirtualBox                   [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+  2. WWindows 2022 Server Edition ISO    [Windows 2022 Server Edition](https://www.microsoft.com/en-us/evalcenter/download-windows-server-2022)
+  3. WIndows 10 ISO                      [Windows 10](https://www.microsoft.com/en-us/software-download/windows10)
+
+
+Let's Get Started!
+
+
+# Step 1: Launch VirtualBox
+
