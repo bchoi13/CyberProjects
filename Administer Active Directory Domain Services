@@ -1,4 +1,4 @@
-Below are the step by step instructions on how you can set up an Active Directory domain, a domain host, an a user as an example. Some of these instructions are derived off of Microsoft's Active Directory Guided Project, hence the similar naming convention. 
+Below are the step by step instructions on how you can set up an Active Directory domain, a domain host, an a user as an example. Some of these instructions are derived off of Microsoft's Active Directory Guided Project, as well as Josh Madakor's youtube guide on setting up Active Directory in homelab, hence the similar naming convention. 
 
 However, there are key differences, including the fact that Microsoft's project requires the use of Hyper-V (which I don't have access to since I own Windows Home Edition).
 
@@ -12,5 +12,162 @@ Software tools you will need:
 Let's Get Started!
 
 
-# Step 1: Launch VirtualBox
+# Step 1: Launch VirtualBox and Set Up Operating System
+
+	1. Open up VirtualBox and click "New" to add a new virtual machine. Configure this with the Windows 2022 Server edition ISO (Desktop Experience). We're going to name this machine "TAILWIND-DC1." Check the "Skip Unattended Installation" box.
+	2. For hardware allocation, I recommend going 4 GB memory, 2 CPU cores, and 50 GB storage.
+	3. Before starting the machine, view the settings for your newly created VM. Go to Network settings and set up an adapter 2, attached to your internal network.
+	4. Start your VM. When asked to install an OS, make sure to select Standard Evaluation (Desktop Experience)! GO next
+	5. When prompted, Custom Installation. Keep going next and you will have to wait some time for the OS installation.
+	6. Once the machine starts up again, you will get a black screen with some text. Do not click anything like it prompts to. 
+	7. Enter a password for the admin account. I'm going with Pa55word but you can make one of your choosing. Just make it easy for yourself.
+	8. Once you arrive at the Windows Login page, you will notice that you cannot ctrl+alt+delete. Hover over to the top of the page "Input" -> "Keyboard" -> "Insert Ctrl+Alt+Del". 
+	9. Enter the password you created and you will be on the VM home screen with some popups.
+	
+	10. Optional: If you would like to reduce some of the input lag on your VM, utilize a full screen, and have a more seamless user experience in general, you can follow the below steps.
+					A. "Devices" -> "Insert Guest Editions CD Image"
+					B. Open FIle Explorer -> "This PC" -> (D:)VirtualBox Guest Editions -> "VBoxWindowsEditions-amd64" --- repeatedly click Next and reboot
+					
+
+
+
+# Step 2: Set up your network IP addresses
+
+	1. Before we set up our IP addresses let's go ahead and rename the PC. Settings -> About -> Rename this PC -- "TAILWIND-DC1" -- Reboot
+	2. After the cVM reboots, Go to Network settings and "Change adapter options"
+
+					* You will notice that there are two ethernet options. One will be our External network and one will be internal. You can double click on these and view details. Whichever one has the Autoconfigured IPv4 (169.X.X.X) is going to be your INTERNAL network. You can rename these connections appropriately 
+					(i.e. external / internal)
+
+	3. For your Internal Network, view Properties and highlight "Internet Protocol Version 4 (TCP/IPv4)" and click properties again. Configure the below addresses as followed:
+
+					IP address: 172.16.0.1
+					Subnet Mask: 255.255.255.0
+					Default Gateway:
+
+					Preferred DNS Server: 127.0.0.1
+					Alternate DNS Server:
+
+				Yes those are intentionally blank
+
+
+
+
+# Step 3: Install Active Directory Domain Services
+
+	1. Open up Server Manager (This opens upon startup if you didn't exit out of it)
+	2. Under the Manage Tab, click on "Add roles and features. Keep clicking next until you get to Server Roles
+	3. Check Active Directory Domain Services, click add features. Keep clicking next and then install when prompted. Let AD DS install, it will take some time.
+	4. After installation, on the Server Manager home page, click on the notifications icon (top right of page, it is a flag with a yellow sign). Click "Promote this server to Domain Controller"
+	5. Setting up the domain --
+				Deployment Configuration
+					Add a new forest; let's call it "tailwindtraders.internal" but again, you can use whatever name you want. This will be the nmae of our domain. Once named, click next.
+				Domain Controller Options
+					Enter a password of your choosing. I went with Pa55word again. 
+
+			From this point on you can keep hitting Next until you get to the Prerequisities check, where you can install the configuration wizard. Install and be prepared for you VM to be rebooted. 
+
+
+
+
+# Step 4: Create an Active Directory Domain Controller
+					*Once Active Directory Domain Services is installed, you will automatically be logged in as a default domain controller. In this step, we will go over how to create a new domain controller.
+
+	1. Pull up the Windows start menu and search for "Active Directory Users and Computers"
+	2. Right click on your newly created domain -> "New" -> Organizational Unit. Create a new OU and name it something like "ADMINS"
+	3. Right click on the new OU and add a new User. Below are examples for the fields provided
+
+				First Name: Domain
+				Last Name: Controller
+				User Logon name: dcontroller
+
+		Next...
+
+				Password: Pa55word
+
+			*You will notice the first box will be checked off and all others are not.
+			I would uncheck this, as well as check "Password never expires"  to save a few steps in this process. Normally in a production environment, you would want any new user to change their password upon login and want password expirations..
+			But this is a just a testing environment, so we can save us some time here.
+
+		Hit next and finish
+
+	4. Right click on your newly created user -> Properties -> Member Of -> Add 
+				Under Object Names, type in "Domain Admins" -> check names -> Ok
+	5. Sign out of the account (Start menu -> user icon -> sign out)
+	6. Rather than sign into TAILWINDTRADERS/Administrator (this is the default account), click "Other User" and enter the credentials you created before. Below are the examples given before
+					Username: dcontroller
+					Password: Pa55word
+
+		You should now be signed into your newly created Domain controller account. 
+
+
+
+
+# Step 5: Install a RAS/NAT (Remote Access Service / Network Address Translation) Gateway
+					*This step is necessary for clients to be connected to our internal network as well as communicate to the external network (connect to the internet).
+
+	1. Once again, click "Add roles and features" and keep hitting next until you get to Server Roles
+	2. Check off "Remote Access" and hit next until you reach Role Services. Here you will check off "routing" and click add features. Keep hitting next and install. This will, once again, take some time. 
+	3. On the Server Manager home page, hover over to "Tools" on the top right and select "Routing and Remote Access" 
+	4. Right click on your computer name and select "Configure and Enable Routing and Remote Access" -> go next and select NAT (second option). 
+
+			* "Use this public interface to connect to the internet" should be selected and you should see the twon network connections listed. If this isn't the case, cancel the setup wizard and try it again. 
+				This is a bug in the system and should work after trying a second time. 
+
+	
+	5. Highlight your external network connection and go next to finish the configuration. 
+
+
+
+# Step 6: Install and Configure DHCP server
+					This step will allow us to automatically assign IP addresses to newly created users. 
+
+	1. Again, go to "Add roles and features" - this time you will be installing DHCP Server. Next and install. 
+	2. Tools -> DHCP
+	3. On the left column, right click on IPv4 and click "New Scope". For our name we will just use range of IPs that will be used
+			Name: 172.16.0.100-200
+			...
+			Start IP: 172.16.0.100
+			End IP:   172.16.0.200
+			Length: 24
+			...
+			We can skip exclusions so click Next
+			...
+			We can skip the lease durations as welll so click Next
+			...
+			We want to configure DHCP options so select Yes and hit Next
+			...
+			On the page that prompts you to specify a default gateway, use the IP address that we gave the domain controller earlier: 172.16.0.1. Click add and next
+			...
+			Keep hitting next and activate the scope now. Finish
+
+	4. On the same page, Right click on the DHCP server on the left column and authorize, then refresh. The IPv4 and IPv6 folders should have green checkmarks, indicating that the address pool is now active and ready for distribution. 
+
+Video 31:42
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
