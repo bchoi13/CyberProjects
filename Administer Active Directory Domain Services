@@ -142,13 +142,78 @@ Let's Get Started!
 			Keep hitting next and activate the scope now. Finish
 
 	4. On the same page, Right click on the DHCP server on the left column and authorize, then refresh. The IPv4 and IPv6 folders should have green checkmarks, indicating that the address pool is now active and ready for distribution. 
-
-Video 31:42
-
-
+	5. Right click on Server Options right under IPv4 and configure. Select 003 Router and add IP address 172.16.0.1 (This will serve as your default gateway)
+	6. Right click the server -> All tasks -> Restart
 
 
 
+# Step 7: Add a user or (optional) sample list of users to the domain using Powershell
+
+
+	1. Use this link to download a .zip file that will contain our powershell scripts as well a randomly generated list of 100 users who we will be adding into our domain.
+			https://github.com/bchoi13/AD_DS
+	2. Search for and open up Windows Powershell ISE and ensure you run as administrator. 
+			At the top, go File -> Open -> AD_DS -> 1_CREATE_USERS.ps1
+	3. Enable script executions 
+			Enter the following:   "Set-ExecutionPolicy Unrestricted" and click "Yes to all"
+		
+		For reference, the script does the following:	
+			Line 2 -- Set the password for all users to "Password1" 
+			Line 3 -- Pulls each line from the names.txt file into variable $USER_FIRST_LAST_LIST
+			Line 6 -- Turns "Password1", which is in plaintext, into a readable format for Active Directory
+			Line 7 -- Creates a new OU,"_USERS", and disables protection from accidental deletion, which we don't need in a lab, but would definitely want to have in a production environment. 
+			Line 9-12 -- Set the username for each line / user to first initial of first name and full last name. Ex: John Brown = Jbrown
+
+	4. Before running the script, we need to change directory of powershell to the folder that contains the script. I moved the extracted folder to my documents, so the command would look like this
+			cd C:\users\dcontroller\Documents\AD_DS
+	5. Hit the play button on the top to run the script.
+	6. Once the script completes, let's double check the active directory. 
+			Active Directory Domain Users and Computers -> tailwindtraders.internal -> _USERS
+			We should see all the applicable usernames of the users we just imported. 
+
+
+
+
+# Step 8: Create a new Windows 10 VM on VirtualBox
+
+	1. Go ahead and put the VM we've been working on to the side. We're going to launch a new one to mimic a brand new user to the domain. Using the same directions as step 1, create a new VM named "TAILWIND-MBR1" using Windows 10 ISO. You can use the same system specs as our domain controller. 
+	2. Go to settings for the newly created VM and under the network tab, set Adapter 1 to be attached to Internal Network. Once done, you can start up the machine.
+	3. Proceed through the prompts and when you get to the windows setup page, just click "I don't have a product key". Then ensure you download Windows 10 PRO!! Afterwards, click Custom Install and wait for the installation to complete. 
+	4. When prompted for a network, click "I don't have internet" , then "continue with limited setup"
+	5. When asked for a name, just put "user", then skip the password prompt (just hit next)
+	6. Privacy settings don't matter but I disabled them all anyway
+	
+
+
+# Step 9: Configure New Computer on Domain
+
+	1. Upon startup, let's make sure our network is all set up. Open up a command prompt (cmd) and enter "ipconfig /all". Ensure you have the following
+			IPv4: 172.16.0.100
+			Subnet Mask: 255.255.255.0
+			Default Gateway: 172.16.0.01
+		Also ping any random website to ensure you have external connection (ex. ping 8.8.8.8). No packets lost is a good sign
+		If these do not work, you may need to go back to step 6 and ensure everything was followed accordingly. If edits are made, then you will need to enter "ipconfig /renew" on the TAILWIND-MBR1 machine for changes to take place.
+
+	2. Rename this PC and assign to domain
+		Windows Settings -> About -> Rename this PC (Advanced) *under related settings* -> change
+			Computer Name: TAILWIND-MBR1
+			Domain: tailwindtraders.internal (or whatever you chose to make it in step 3.5)
+		When prompted for Username and password, you will need use your domain controller account. Here are the example credentials:
+			Username: dcontroller
+			Password: Pa55word
+		Restart computer when prompted
+	
+	3. Let's confirm this domain assignment on TAILWIND-DC1. Go back to the DHCP list and find Address Leases. You should see TAILWIND-MBR1 as a leased computer!
+		Same thing with Active Directory. Go to Active Directory Users and Computers. Under the Computers folder, you should see TAILWIND-MBR1.
+
+	
+
+# Step 10: Sign in as a User
+
+
+	1. Back to TAILWIND-MBR1, sign in as other user. You should be able to log in as any of the 100 users we uploaded via powershell. Use any of the login credentials to sign in as a user. 
+		Ex: Username: alarsen
+		    Password: Password1
 
 
 
@@ -156,11 +221,7 @@ Video 31:42
 
 
 
-
-
-
-
-
+Congratulations, we have now configured an Active Directory domain, assigned a domain controller, added a workstation, and added users. 
 
 
 
