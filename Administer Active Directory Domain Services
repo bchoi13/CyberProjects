@@ -151,7 +151,7 @@ Let's Get Started!
 
 
 	1. Use this link to download a .zip file that will contain our powershell scripts as well a randomly generated list of 100 users who we will be adding into our domain.
-			https://github.com/bchoi13/AD_DS
+			https://github.com/bchoi13/AD_DS/raw/refs/heads/main/AD_DS.zip
 	2. Search for and open up Windows Powershell ISE and ensure you run as administrator. 
 			At the top, go File -> Open -> AD_DS -> 1_CREATE_USERS.ps1
 	3. Enable script executions 
