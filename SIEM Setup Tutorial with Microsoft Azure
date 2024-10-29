@@ -1,0 +1,93 @@
+What is a SIEM?
+
+A Security Information and Event Management tool is used detect, analyze, and respond to security threats. It collects and centralizes security data from across a network—like logs from servers, firewalls, and devices—then analyzes this data for signs of suspicious activity. 
+SIEMs use rules and automated responses to alert security teams about potential threats, helping them to quickly investigate and address security incidents. Essentially, a SIEM is a control center for monitoring and managing an organization’s security in real time.
+
+In this guide, I will go over how to very easily set up a SIEM tool (Azure Sentinel) in a Virtualbox VM. The VM we will be utilizing in this lab will be Windows 10 Pro set up on Microsoft Azure
+
+This guide, in essence, is a written format of Josh Madakor's youtube tutorial. We all start somewhere :)
+
+
+Software tools you will need:
+
+  1. Microsoft Azure Cloud Service       [Microsoft Azure](https://azure.microsoft.com/en-us/pricing/purchase-options/azure-account)    -- *Disclaimer: You can get the free trial for 30 days. Look to complete this project within that timeframe upon initiation to take advantage of the no cost features. 
+
+
+
+
+
+Let's get started!
+
+
+# Step 1: Create Virtual Machine on Azure
+
+          1. Once you complete the Azure signup, on the home page search for "Virtual Machines". Once on the page, click on "Create" and select the "Azure Virtual Machines" option
+          2. On the creation page, my input is as follows:
+                VM Name: Machine1
+                Region: (US) East US 2
+                Availability Options: No infrastructure redundancy required
+                Security Type: Standard
+                Image: Windows 10 Pro
+
+                Username: Honeyman
+                Password: Givemehoney!
+
+            Make sure to check the box under licensing and go the next pages until you hit the Networking tab
+
+          3. For the NIC Security Group section, click "Advanced". Then, click "Create new" under the dropdown menu.
+          4. Remove the current inbound rule and add a new rule that will allow all traffic through. We want our machine to be vulnerable to discovery for the purpose of this lab in order to showcase a better SIEM simulation. 
+             When adding the new inbound rule, the options to change are:
+                Source Port Range: *
+                Destination Port Range: *
+                Priority: 100
+                Name: ALL_IN
+                                  "*" = all ports
+
+          5. Once we've added the new rule, we can review + create the VM. 
+
+
+
+
+
+# Step 2: Install Log Analytics Workspaces and Update Security Center on Azure
+
+        1. While the VM deployment is in progress, let's add a Log analytics Workspace in Azure. Search for this similarly to how we found the VM page. 
+                * We are adding this tool in order to review any event logs from the VM as well as build custom logs that include geographical traits which can help pinpoint the source of attacks. *
+        2. Create Log analytics workspace. Below are my inputs for the Basic tab:
+                Resource group: Machine1_group
+                Name: Machine1Logs
+        3. Review + Create
+        4. Search for "Microsoft Defender for Cloud"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Delete Resources
