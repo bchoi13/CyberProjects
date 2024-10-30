@@ -50,26 +50,93 @@ Let's get started!
 
 
 # Step 2: Install Log Analytics Workspaces and Update Security Center on Azure
-
-        1. While the VM deployment is in progress, let's add a Log analytics Workspace in Azure. Search for this similarly to how we found the VM page. 
+          While the VM deployment is in progress, let's add a Log analytics Workspace in Azure. Search for this similarly to how we found the VM page. 
                 * We are adding this tool in order to review any event logs from the VM as well as build custom logs that include geographical traits which can help pinpoint the source of attacks. *
-        2. Create Log analytics workspace. Below are my inputs for the Basic tab:
+
+        1. Create Log analytics workspace. Below are my inputs for the Basic tab:
                 Resource group: Machine1_group
                 Name: Machine1Logs
-        3. Review + Create
-        4. Search for "Microsoft Defender for Cloud"
-
-8:52
-
-
-
-
+        2. Review + Create . *Make sure to press "Create" again or else you won't deploy the workspace!!!*
+        3. Search for "Microsoft Defender for Cloud". We'll head to Environment settings which is under the Management section of the side panel.
+        4. Click on the workspace you just created. You might have to keep dropping down the selections on the page for it to appear. Mine will be "Machine1Logs". 
+        5. On the Defender Plans page, turn on Foundational CPSM and Servers. Make sure to save! This might take some time.
+           On the Data collection page, select All Events and save. 
+        6. Go back to Log Analytics Workspace. Find the Virtual machines page under the "Classic" header. Select and connect to your VM.
 
 
 
 
+# Step 3: Set up Microsoft Sentinel
+          *Formerly known as Azure sentinel, this tool is the SIEM that comes with Azure. It will provide us visual feedback on comprehensive data for incoming traffic into our network. 
+
+        1. Search up Microsoft Sentinel and create. 
+        2. Select the workspace and click add on the bottom.
 
 
+
+
+# Step 4: Log into the VM using Remote Desktop and view logs
+
+        1. Search Remote Desktop Connection in your local machine (VNC for Mac/Limux machines)
+        2. Go to the Virtual Machines page on Azure. In the Overview section, copy the Public IP address of your VM and paste onto the Remote Desktop Connection prompt.
+        3. Click "more choices" when signing in and use the credentials you established earlier to login. 
+
+                Username: Honeyman
+                Password: Givemehoney!
+
+        4. Accept certificate warning
+        5. Disable all the privacy settings but they don't matter too much here. Wait for the machine to startup.
+        6. On the VM homepage, search for and open Event Viewer. In event viewer, go Windows Logs -> Security
+        7. The security page lists all occurrences in the system and are designated either by success or failure. Let's try an experiment:
+
+              Go back to your local machine and open Remote Desktop connection. Try inputting the wrong credentials for the machine intentionally and pay attention to the time. Once done you should see a log appear for this event after refreshing the page. The details should list your IP and local device name. 
+              You may notice there are a multitude of other attempted logins and other logs that stand out. These are real attempts into our network. However, the details are not sufficient for us, so we will look into implementing a goegraphic indicator in the next steps. 
+
+
+
+
+# Step 5: Turn off Firewall in VM
+
+        1. In the VM, search for Windows Defender Firewall -> Advanced Settings -> Windows Defender Firewall Properties (Under Overview).
+        2. Set firewall state to off for all tabs
+        3. On your Local machine, try opening up command prompt and pinging the VM. If the pings go through it means you, as well as anybody else on the external network, can reach the VM.
+        
+
+
+
+# Step 6: Download and alter powershell script to generate custom logs
+
+        1. Open up the below link and download the script file to the VM. It is a powershell script made by Josh Madakor. Download it to the Desktop.
+           https://github.com/joshmadakor1/Sentinel-Lab/blob/main/Custom_Security_Log_Exporter.ps1
+
+        2. Open up (https://ipgeolocation.io/) and make a free account. Once made - copy the API key that is provided, open up the powershell script you downloaded earlier, and paste that key into the designated space on line 2 where it says $API_KEY
+           This step is necessary for us to acquire the geographical data from our custom logs.
+
+        3. Open Powershell ISE and run the script. 
+           The script will look through all the failed logs in our event viewer and gathers geographical data based on the IP addresses of those logs. It basically sends the IP address of the failed audit logs to ipgeolocation.io, and creates a new log of those results. 
+           The results from running the script are all related to failed audits. Keep in mind that the script runs continuously and will capture logs real time. You will see all kinds of attempts into your network from all over the world. 
+
+        4. To view the created log file with your results, go to file explorer -- This PC\C:\ProgramData
+                    *This folder will be hidden. TO reveal it, go to "view" and select "show hidden items"
+
+        5. Copy the contents of your log file and save it into a new noetpad file on your Local Machine. You will need this in the next step. 
+
+
+
+
+#Step 7: Create custom log with geographical data in Azure workspace 
+
+        1. Back to Azure, go back to Log analytics Workspace. 
+        2. Under your workspace, go to Settings -> Tables -> Create -> Create custom log (MMA Based). Import the log file you saved from the previous step.
+        3. Hit next and on the COllection paths, select Windows and import the path of the log file in the VM: C:\ProgramData\failed_rdp.log
+        4. Next, name your custom log. Mine will be "Failed_RDPGeo". Create the custom log and wait some time for it to finish.
+        5. Go to Logs and type in the query box Failed_RDPGeo_CL and click run to view the individual log entries. These are still unpolished so let's make this nicer in the next step.
+
+
+
+
+#Step 8: Create Custom Parameters in our Log file in Azure workspace
+      
 
 
 
