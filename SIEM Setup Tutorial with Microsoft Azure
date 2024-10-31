@@ -3,7 +3,9 @@ What is a SIEM?
 A Security Information and Event Management tool is used detect, analyze, and respond to security threats. It collects and centralizes security data from across a network—like logs from servers, firewalls, and devices—then analyzes this data for signs of suspicious activity. 
 SIEMs use rules and automated responses to alert security teams about potential threats, helping them to quickly investigate and address security incidents. Essentially, a SIEM is a control center for monitoring and managing an organization’s security in real time.
 
-In this guide, I will go over how to very easily set up a SIEM tool (Azure Sentinel) in a Virtualbox VM. The VM we will be utilizing in this lab will be Windows 10 Pro set up on Microsoft Azure
+In this guide, I will go over how to very easily set up a SIEM tool (Azure Sentinel) in VM that will be acting as a honeypot. The VM we will be utilizing in this lab will be Windows 10 Pro set up on Microsoft Azure
+
+A honeypot is decoy device disguised as a legitimate one used to attract attackers and study attacker behavior.
 
 This guide, in essence, is a written format of Josh Madakor's youtube tutorial. We all start somewhere :)
 
