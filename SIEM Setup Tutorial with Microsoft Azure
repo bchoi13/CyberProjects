@@ -136,9 +136,12 @@ Let's get started!
 
 
 #Step 8: Create Custom Parameters in our Log file in Azure workspace
-      
+         *Looking at the table generated from running the script on the Log Analytics Workspaces page, you can see the multitude of data under the "RawData" column. In this step we will separate each identifiable type into its own column.
 
-24:47
+        1. 
+
+
+
 
 
 
