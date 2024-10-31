@@ -128,7 +128,7 @@ Let's get started!
 
         1. Back to Azure, go back to Log analytics Workspace. 
         2. Under your workspace, go to Settings -> Tables -> Create -> Create custom log (MMA Based). Import the log file you saved from the previous step.
-        3. Hit next and on the COllection paths, select Windows and import the path of the log file in the VM: C:\ProgramData\failed_rdp.log
+        3. Hit next and on the collection paths, select Windows and import the path of the log file in the VM: C:\ProgramData\failed_rdp.log
         4. Next, name your custom log. Mine will be "Failed_RDPGeo". Create the custom log and wait some time for it to finish.
         5. Go to Logs and type in the query box Failed_RDPGeo_CL and click run to view the individual log entries. These are still unpolished so let's make this nicer in the next step.
 
@@ -138,7 +138,26 @@ Let's get started!
 #Step 8: Create Custom Parameters in our Log file in Azure workspace
          *Looking at the table generated from running the script on the Log Analytics Workspaces page, you can see the multitude of data under the "RawData" column. In this step we will separate each identifiable type into its own column.
 
-        1. 
+        1. Copy the script in this link into the query box of the page. Alter the first line as necessary if you named the log file differently. Run the script and you will see the table is much prettier in appearance for us, showcasing country, state, source IP, username, and more important data figures.
+                https://github.com/bchoi13/Extraction/blob/main/Log%20Analytics%20Workspaces%20KQL
+
+        2. Let's test this script out real-time now. Open up remote desktop connection and try signing into the VM with the wrong credentials. You should see the log entry appear after a few minutes with the exact location details of your local device. 
+
+
+
+
+# Step 9: Produce a Map for visual layout of attempted attacks into our network
+
+        1. Go to Microsoft Sentinel and under Threat Management, go to Workbooks. Add a Workbook.
+        2. You can remove the two basic analytics queries that are provided to us as we won't be using them.
+        3. Add query and paste the script from earlier. Run the script
+        4. Under the visualization drop down, select Map. You will now see a map that visualizes where attacks are coming from.
+        5. On the right hand side you will see settings you can tinker with. For example: setting the metric label to "label" will output the IP addresses
+        6. Save the map and turn on auto refresh for 5 minutes. Keep in mind the powershell script in the VM needs to be running in order for us to retrieve real time data. 
+
+
+
+We are now finished setting up a Microsoft Sentinel SIEM for a VM created through Azure and have visualized the source locations of real time attacks through a world map. 
 
 
 
@@ -149,15 +168,4 @@ Let's get started!
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-Delete Resources
+Important to note that you should delete all your resources once completed as Azure will charge you for using these once your free trial is over with. 
