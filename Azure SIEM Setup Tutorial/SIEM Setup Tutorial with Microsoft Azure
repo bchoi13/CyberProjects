@@ -140,8 +140,8 @@ Let's get started!
 #Step 8: Create Custom Parameters in our Log file in Azure workspace
          *Looking at the table generated from running the script on the Log Analytics Workspaces page, you can see the multitude of data under the "RawData" column. In this step we will separate each identifiable type into its own column.
 
-        1. Copy the script in this link into the query box of the page. Alter the first line as necessary if you named the log file differently. Run the script and you will see the table is much prettier in appearance for us, showcasing country, state, source IP, username, and more important data figures.
-                https://github.com/bchoi13/Extraction/blob/main/Log%20Analytics%20Workspaces%20KQL
+        1. Copy the script in this link (or view the other codespace in the folder) into the query box of the page. Alter the first line as necessary if you named the log file differently. Run the script and you will see the table is much prettier in appearance for us, showcasing country, state, source IP, username, and more important data figures.
+                https://github.com/bchoi13/CyberProjects/blob/main/Azure%20SIEM%20Setup%20Tutorial/Log%20Analytics%20Workspaces%20KQL 
 
         2. Let's test this script out real-time now. Open up remote desktop connection and try signing into the VM with the wrong credentials. You should see the log entry appear after a few minutes with the exact location details of your local device. 
 
