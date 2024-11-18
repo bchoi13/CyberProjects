@@ -45,11 +45,13 @@ This repository contains a custom PowerShell script designed to implement a **Fi
    ```powershell
    .\FileIntegrityMonitor.ps1
 
-You may need to adjust the execution policy to allow running scripts:
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+
+* You may need to adjust the execution policy to allow running scripts:
+   ```powershell
+   Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
 
-4. Follow the prompts to configure the monitoring settings.
+4.  Follow the prompts to configure the monitoring settings.
 
 
 ## Customization
