@@ -1,4 +1,4 @@
-What is a FIM?
+## What is a FIM?
 
   A File Integrity Monitor (FIM) is a security tool or system designed to detect and report changes to files, configurations, and other critical system components. It works by creating a baseline of file attributes (e.g., size, hash values, permissions, timestamps) and continuously monitoring for deviations from this baseline.
 
