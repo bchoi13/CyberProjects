@@ -33,7 +33,7 @@ This repository contains a custom PowerShell script designed to implement a **Fi
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/bchoi13/File-Integrity-Monitoring/FIM.ps1
+   git clone https://github.com/bchoi13/File-Integrity-Monitoring/FIMFinal.ps1
 
 
 2. Navigate to the folder containing the script
