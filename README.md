@@ -31,12 +31,6 @@ Tools Used: PowerShell
   - Alerting: Generates email or system alerts when changes are detected.
 - Applied this tool to a test environment to safeguard sensitive files and ensure system integrity.
 
-## 🛠️ Cybersecurity Labs (In Progress)
-Tools Used: TryHackMe
-
-- Completed hands-on labs in penetration testing, privilege escalation, and web app vulnerabilities.
-- Explored CTF challenges and documented solutions for various exploits.
-
 Skills Demonstrated:
   - System Administration: Proficiency in managing Windows and Linux systems.
   - Active Directory: Setting up domains, managing users, and applying group policies.
