@@ -142,7 +142,7 @@ When adding the new inbound rule, the options to change are:
 
 
 
-#Step 7: Create custom log with geographical data in Azure workspace 
+# Step 7: Create custom log with geographical data in Azure workspace 
 
 1. Back to Azure, go back to Log analytics Workspace. 
 2. Under your workspace, go to Settings -> Tables -> Create -> Create custom log (MMA Based). Import the log file you saved from the previous step.
@@ -153,7 +153,7 @@ When adding the new inbound rule, the options to change are:
 
 
 
-#Step 8: Create Custom Parameters in our Log file in Azure workspace
+# Step 8: Create Custom Parameters in our Log file in Azure workspace
          *Looking at the table generated from running the script on the Log Analytics Workspaces page, you can see the multitude of data under the "RawData" column. In this step we will separate each identifiable type into its own column.
 
 1. Copy the script in this link (or view the codespace in this repo) into the query box of the page. Alter the first line as necessary if you named the log file differently. Run the script and you will see the table is much prettier in appearance for us, showcasing country, state, source IP, username, and more important data figures.
@@ -186,5 +186,5 @@ We are now finished setting up a Microsoft Sentinel SIEM for a VM created throug
 
 
 
-
+## Disclaimer
 Important to note that you should delete all your resources once completed as Azure will charge you for using these once your free trial is over with. 
