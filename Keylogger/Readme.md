@@ -13,5 +13,5 @@ This keylogger project was undertaken solely for educational and research purpos
 I do not condone or support the use of keyloggers or similar tools for malicious purposes, such as stealing sensitive information, invading privacy, or violating any laws. 
 Ethical conduct is a cornerstone of my approach to technology, and I strongly advocate for using cybersecurity knowledge responsibly to protect systems and individuals from harm.
 
-## Software Used
+## Code Editor
 [Microsoft Visual Studio Code](https://code.visualstudio.com/)
