@@ -3,6 +3,9 @@
 ## What is a keylogger?
 Also known as a keystroke logger, a keylogger is a monitoring software tool designed to record each key pressed on a computer system. There are several types that exist and can be used for malicious activity. 
 
+## Usage
+This python code is a barebones script that will simply print out YOUR keystrokes onto YOUR terminal when executed in the text editor. 
+
 ## Statement of Intent
 
 This keylogger project was undertaken solely for educational and research purposes to deepen my understanding of cybersecurity concepts, particularly around potential threats and system vulnerabilities. The project was designed in a controlled environment with explicit permission and safeguards to prevent any misuse.
