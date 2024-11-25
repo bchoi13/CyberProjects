@@ -1,6 +1,6 @@
 # Keylogger Python Script
 
-## What is a keylogger?
+## What is a Keylogger?
 Also known as a keystroke logger, a keylogger is a monitoring software tool designed to record each key pressed on a computer system. There are several types that exist and can be used for malicious activity. 
 
 ## Usage
