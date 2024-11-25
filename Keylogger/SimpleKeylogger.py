@@ -1,4 +1,7 @@
-rom pynput import keyboard
+# Install pynput in terminal
+# py -m pip install pynput
+
+from pynput import keyboard
 
 def keyPressed(key):
     print(str(key))
