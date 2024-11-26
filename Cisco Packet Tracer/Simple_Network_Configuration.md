@@ -131,3 +131,35 @@ f.      In the Web Browser, navigate to cisco.srv.
 Final result of logical map
 
   ![image](https://github.com/user-attachments/assets/3a244eac-e012-494e-b430-4b9daaa19487)
+
+
+
+---
+
+
+
+
+- Afterwards, DHCP kept failing for the computer endpoint, leading to an APIPA assigned IPv4 address. I was not sure why. Here is my troubleshooting steps to figure out the solution:
+
+  1. Restart the computer / replug network cables
+  2. Reset DHCP on computer endpoint
+  3. Go to command prompt,
+       - ipconfig /release
+       - ip[config /renew
+  4. Go to wireless router GUI, raise the maximum number of users for DHCP from 2. This solved the problem
+     ![image](https://github.com/user-attachments/assets/caedc8df-65d6-4c69-93b5-5a435d7ccacc)
+     
+     ![image](https://github.com/user-attachments/assets/08dc04bb-be82-451e-a87f-118f22e2fea5)
+
+---
+
+Problem: DHCP Failure on endpoint leading to APIPA assigned IP address and inability to reach external network
+Solution: Raise the maximum number of users on DHCP settings on Wireless Router from 2 to 6. 
+
+![image](https://github.com/user-attachments/assets/cb682a38-0ad6-4dcf-ac5d-cc13d92b8931)
+
+
+
+
+
+     
