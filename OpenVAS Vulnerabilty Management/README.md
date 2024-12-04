@@ -51,8 +51,102 @@ We’ll use an intentionally insecure Windows 10 VM for testing, simulating comm
 
 1. Disable Windows Security
    - Go back to your Windows VM. Before proceeding, ensure your VM is using NAT for external communication. Since we intentionally make VM a security risk, we want to makee sure it is as isolated from our internal network as possible. Although VirtualBox is a pretty safe application when it comes to this risk, we want to avoid VM escapes as much as we can.
+     
      ![image](https://github.com/user-attachments/assets/c90c2f1b-3484-4ef5-9903-d3d53d53eda4)
-   - Start the VM again. 
+   - Start the VM again. Search Windows Security and go to Firewall and Network Protection. Select each network and disable Microsoft Defender firewall.
+     
+     ![image](https://github.com/user-attachments/assets/06088596-5a86-4c40-a82d-f18bb290611a)
+     ![image](https://github.com/user-attachments/assets/c4c518a5-7b56-4c4b-8583-74f4ea2aa929)
+     ![image](https://github.com/user-attachments/assets/3a4fd303-03e2-4c00-aa5e-0e9d6a6dd2a9)
+
+2. Download out-dated software to VM
+   - Use the below link to download DVWA (Damn Vulnerable Web Application). WARNING: DO NOT DOWNLOAD TO YOUR HOST MACHINE.
+   - Make sure to download XAMPP as well for the Windows Machine (Same link). Download and proceed with all the preconfigured settings. The download will take some time. 
+     
+     [DVWA](https://github.com/digininja/DVWA)
+
+   - After XAMPP is downloaded, start Apache and MySQL
+
+   ![image](https://github.com/user-attachments/assets/b2ee33d4-f7e9-47e0-90c5-5fabcee5a529)
+
+   - Extract the DVWA-Master .zip folder and rename to "DVWA"
+      - Note: There are two "DVWA-Master" folders. Rename the one inside the other.    
+  
+   ![image](https://github.com/user-attachments/assets/1f2f0e96-3d82-459e-9488-55f541c00842)
+
+   - Open up a new file explorer and go to the following path: "C:\xampp\htdocs". Copy the DVWA Folder into this path. 
+   - Go to the following link and remove ".dist" from the singular file you see. C:\xampp\htdocs\DVWA\config
+      
+   ![image](https://github.com/user-attachments/assets/1706c19f-eec4-4ac0-87af-2b8869eccd62)
+
+   - Create the Database: Open the file with notepad. We will need to use below settings to create a databse with MySQL on XAMPP
+     ``` txt
+     $_DVWA[ 'db_database' ] = getenv('DB_DATABASE') ?: 'dvwa';
+     $_DVWA[ 'db_user' ]     = getenv('DB_USER') ?: 'dvwa';
+     $_DVWA[ 'db_password' ] = getenv('DB_PASSWORD') ?: 'p@ssw0rd';
+     ```
+      - Go to XAMPP, and under actions for MySQL, go to admin.
+        ![image](https://github.com/user-attachments/assets/b47ea1b0-8ad4-41fb-8fc2-20d28722f49a)
+        
+        ![image](https://github.com/user-attachments/assets/3239fb34-0372-4cc9-9309-8d1dc760d1e0)
+
+
+   - Add User Account: Open up the database you just created, go to Privileges, and add user account. Configure the username and password to what is in the text file. Once configured, click go.
+     
+     ![image](https://github.com/user-attachments/assets/7af13d4a-f7ce-4163-a9a8-bf6fd691b9f4)
+     
+     ![image](https://github.com/user-attachments/assets/98fd144c-37bf-40c0-b603-af9597bcd853)
+
+
+   - Go to Micrsoft Edge and input into the search bar "/localhost/DVWA". If you attempted this before the database creation you would've gotten an error. Now, we should see a login page.
+  
+      ![image](https://github.com/user-attachments/assets/78726675-b40e-4ece-967c-7f5b48f50250)
+
+   - When we login (without credentials) we get taken to a Database Setup page. Scroll down and click "Create / Reset Database". If successful, you will be taken back to the login page. Login for verification
+     ```
+     username: admin
+     password: password
+     
+     ```
+
+   From here we don't need to do anything else and have successfully installed the DVWA to our VM. With a vulnerable web application and a Defender turned off in our Windows machine, it is time to showcase identifying these vulnerabilities. 
+
+
+   ## Step 3: Install OpenVAS into Linux VM
+
+1. Open up Terminal in the Ubuntu VM. Ensure your system is up to date.
+   
+      ```linux
+      sudo apt update && sudo apt upgrade -y
+      ```
+      
+2. Install openVAS.
+   
+      ```linux
+      sudo apt install -y openvas
+      ```
+3. Run Setup. The download will take time. 
+
+      ```linux
+      sudo gvm-setup
+      ```
+
+4. Run OpenVAS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
