@@ -3,7 +3,7 @@
 
 ## Overview
 This tutorial will guide you through setting up OpenVAS (Open Vulnerability Assessment System) for vulnerability scanning, using an unsecured Windows 10 VM on VirtualBox. OpenVAS is an open-source vulnerability scanning tool used to identify and assess vulnerabilities in IT infrastructures. 
-We’ll use an intentionally insecure Windows 10 VM for testing, simulating common vulnerabilities that OpenVAS will help identify.
+We’ll use an intentionally insecure Windows 10 VM for testing, simulating common vulnerabilities that OpenVAS will help identify. Note this "guide" contains the raw process of my first attempt at this project, so it will include troubleshooting steps as well as other notes of mine. 
 
 ## Prerequisites
 - VirtualBox installed on your machine. [Download here](https://www.virtualbox.org/wiki/Downloads)
@@ -112,37 +112,108 @@ We’ll use an intentionally insecure Windows 10 VM for testing, simulating comm
    From here we don't need to do anything else and have successfully installed the DVWA to our VM. With a vulnerable web application and a Defender turned off in our Windows machine, it is time to showcase identifying these vulnerabilities. 
 
 
-   ## Step 3: Install OpenVAS into Linux VM
+   ## Step 4: Install OpenVAS into Linux VM
 
 1. Open up Terminal in the Ubuntu VM. Ensure your system is up to date.
    
-      ```linux
+      ```bash
       sudo apt update && sudo apt upgrade -y
       ```
       
 2. Install openVAS.
    
-      ```linux
+      ```bash
       sudo apt install -y openvas
       ```
 3. Run Setup. The download will take time. 
 
-      ```linux
+      ```bash
       sudo gvm-setup
       ```
 
-4. Run OpenVAS
+4. Run OpenVAS service and check to see if running
+
+      ```bash
+      sudo gvm-start
+      sudo gvm-check-setup
+      ```
+
+5. Before proceeding to the web interface of Greenbone OpenVAS, we will need the ip address of our linux machine, so use the following command to retrieve it:
+
+      ```bash
+      hostname -I
+      ```
+
+   ![image](https://github.com/user-attachments/assets/05bb71a8-c97d-4940-a2fc-1f2efde64cf2)
+
+6. With your IP address, enter the following url into your **host machine**
+
+   ```
+   https://<Linux_VM_IP>:9392
+   ```
+
+   -**Troubleshooting**: If you are unable to retrieve the web server, like I was the first time, below are the troubleshooting steps I did in order:
+     
+     - Ensure Linux VM's firewall settings are not getting in the way.
+       ```bash
+       sudo ufw allow 9392/tcp
+       ```
+     - Check status of gsad (Greenbone Security Assistant Daemmon)
+       ```bash
+       sudo systemctl status gsad
+       sudo systemctl restart gsad
+       ```
+
+     - Test connectivity between Host machine and Linux VM. Ping the linux VM from host machine. If request times out, it is a network connectivity issue.
+      
+   - My problem was a network connectivity issue between host machine and Linux VM. The issue is the VM is set to NAT networking which does not allow ICMP requests between the two, only for the VM to access the external network.
+   To fix this, I went into the VirtualBox settings for the Linux VM and added a 2nd network adapter using host-only adapter setting.
+
+   ![image](https://github.com/user-attachments/assets/621e1e68-296f-4187-b965-abfb7f67aaf2)
+
+   - After setting up the configuration, I launched the VM again. We can see now that we are provided a new IP address for the machine, which falls under the same subnet as the host machine. To confirm, we can now ping the Linux VM.
+
+   ![image](https://github.com/user-attachments/assets/54b0a09d-ea08-4726-9727-aef37bd16ac8)
+   ![image](https://github.com/user-attachments/assets/f040c12f-e363-4bda-8b22-973f806360bf)
 
 
+   - Turns out that did not solve the issue, so I configured the firewall settings on my Host machine to allow ICMPv4 requests between the two IP addresses.
 
+   ![image](https://github.com/user-attachments/assets/6bce75d8-b060-4afa-9fe8-21633e7ee57c)
 
+   - Doing this allowed me to ping the Host-Only address on my host machine.
 
+   ![image](https://github.com/user-attachments/assets/5b78531a-6cad-44f6-aafa-c646e76c38b9)
 
+   - However, I still am not able to obtain the OpenVAS web server on my host machine. Next, I used the following commands in Linux to identify if the web server is listening on the correct IP and port.
+      
+  ```bash
+     sudo netstat -tuln | grep 9392
+  ```
 
+   - Note: You may need to install the package containing the netstat command.
+  
+     ```bash
+     sudo netstat -tuln | grep 9392
+     ```
+      
+   - These are my initial results from performing the command, which should not be the case
 
+   ![image](https://github.com/user-attachments/assets/6b9c5d3d-2c99-46ae-91ed-f64ebdabc13a)
 
+   Having an IP of 127.0.0.1 means that the web server is not binded to the Host-Only adapter IP. We must stop the GSAD process, rebind to the correect IP, and restart it. 
 
+   ```bash
+   sudo systemctl stop gsad
+   sudo gsad --listen=192.168.56.101 --port=9392
+   sudo systemctl start gsad
+   ```
 
+   Results:
+
+   ![image](https://github.com/user-attachments/assets/f1e247a8-8ac5-4965-b7e6-be19f23936be)
+
+   We are not finally able to access the web server from our host machine. Albeit there is a warning but that is completely normal. OpenVAS uses a self-signed SSL certificate that our browser does not trust by default. 
 
 
 
