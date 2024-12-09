@@ -213,9 +213,9 @@ We’ll use an intentionally insecure Windows 10 VM for testing, simulating comm
 
    ![image](https://github.com/user-attachments/assets/f1e247a8-8ac5-4965-b7e6-be19f23936be)
 
-   We are not finally able to access the web server from our host machine. Albeit there is a warning but that is completely normal. OpenVAS uses a self-signed SSL certificate that our browser does not trust by default. 
+   We are now finally able to access the web server from our host machine. Albeit there is a warning but that is completely normal. OpenVAS uses a self-signed SSL certificate that our browser does not trust by default. 
 
-
+   However, the web address is still not working! I am going to try updating GSA as I've come to discover that we are using an outdated version. 
 
 
 
