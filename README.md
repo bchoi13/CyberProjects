@@ -1,5 +1,5 @@
 # 💻 IT and Cybersecurity Projects Repository
-Welcome to my IT and Cybersecurity portfolio! This repository highlights my hands-on projects that demonstrate my technical skills in IT infrastructure, system administration, and cybersecurity. Additionally, it will showcase guides on how to complete some of my favorite CTF objectives on TryHackMe.com
+Welcome to my IT and Cybersecurity portfolio! This repository highlights my hands-on projects that demonstrate my technical skills in IT infrastructure, system administration, and cybersecurity.
 
 ## 🔒 Active Directory Deployment
 Tools Used: Windows Server 2022, Windows 10, VirtualBox
