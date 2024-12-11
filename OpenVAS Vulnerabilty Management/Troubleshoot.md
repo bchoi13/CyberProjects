@@ -64,7 +64,7 @@ To fix this, I went into the VirtualBox settings for the Linux VM and added a 2n
 
   ![image](https://github.com/user-attachments/assets/f1e247a8-8ac5-4965-b7e6-be19f23936be)
 
-  We are now finally able to access the web server from our host machine. Albeit there is a warning but that is completely normal. OpenVAS uses a      self-signed SSL certificate that our browser does not trust by default. 
+  We are now finally able to access the web server from our host machine. Albeit there is a warning but that is completely normal. OpenVAS uses a self-signed SSL certificate that our browser does not trust by default. 
 
   However, the web address is still not working! After some digging, I came to realize that the web server was no accessible from neither my home machine nor the linux VM, meaning the problem mostly stems from the Greenbone software configuration and not a network issue.
   
