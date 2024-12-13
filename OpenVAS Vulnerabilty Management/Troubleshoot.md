@@ -52,7 +52,7 @@ To fix this, I went into the VirtualBox settings for the Linux VM and added a 2n
 
   ![image](https://github.com/user-attachments/assets/6b9c5d3d-2c99-46ae-91ed-f64ebdabc13a)
 
-  Having an IP of 127.0.0.1 means that the web server is not binded to the Host-Only adapter IP. We must stop the GSAD process, rebind to the correect IP, and restart it. 
+  Having an IP of 127.0.0.1 means that the web server is not binded to the Host-Only adapter IP. We must stop the GSAD process, rebind to the correct IP, and restart it. 
 
   ```bash
    sudo systemctl stop gsad
@@ -70,9 +70,48 @@ To fix this, I went into the VirtualBox settings for the Linux VM and added a 2n
   
   I am going to try building GSA from scratch as I've come to discover that we are using an outdated version and are missing some key files. In order to build GSA, we will need CMAKE, which also needs Node.JS and Yarn. 
 
+---
+
+```bash
+sudo apt install git
+```
+Clone main repository
+```bash
+git clone https://github.com/greenbone/gsa.git
+cd gsa
+```
+
+Install cmake
+```bash
+sudo apt install cmake
+
+```
+The Build
+```bash
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+
 1. You may need to install the necessary dependencies to build GSA (Node.JS, Yarn)
 
 ```bash
+sudo apt install curl
 curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
