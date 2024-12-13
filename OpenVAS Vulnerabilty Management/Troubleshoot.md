@@ -66,7 +66,7 @@ To fix this, I went into the VirtualBox settings for the Linux VM and added a 2n
 
   We are now finally able to access the web server from our host machine. Albeit there is a warning but that is completely normal. OpenVAS uses a self-signed SSL certificate that our browser does not trust by default. 
 
-  However, the web address is still not working! After some digging, I came to realize that the web server was no accessible from neither my home machine nor the linux VM, meaning the problem mostly stems from the Greenbone software configuration and not a network issue.
+  However, the web address is still not working! After some digging, I came to realize that the web server was not accessible from neither my home machine nor the linux VM, meaning the problem mostly stems from the Greenbone software configuration and not a network issue.
   
   I am going to try building GSA from scratch as I've come to discover that we are using an outdated version and are missing some key files. In order to build GSA, we will need CMAKE, which also needs Node.JS and Yarn. 
 
