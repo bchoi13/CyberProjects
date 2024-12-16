@@ -141,14 +141,45 @@ We’ll use an intentionally insecure Windows 10 VM for testing, simulating comm
       sudo gvm-setup
       ```
 
-4. Run OpenVAS service and check to see if running
+      Note: When attempting to run the setup, I was given an error:
+      ```bash
+      [>] Starting PostgreSQL service
+      [-] ERROR: The default PostgreSQL version (16) is not 17 that is required by libgvmd
+      [-] ERROR: libgvmd needs PostgreSQL 17 to use the port 5432
+      [-] ERROR: Use pg_upgradecluster to update your PostgreSQL cluster
+      ```
+
+      To troubleshoot, I first verified what the current version of postgresql is being run on the system:
+      ```bash
+      psql --version
+      ```
+      ![image](https://github.com/user-attachments/assets/78d0f3c9-4e9b-46a8-8929-e44f5bc751b1)
+
+      This confirms that I am indeed running at least version 17. Next I went into the /etc/postgresql directory to find that the system has two versions of postgresql installed: 16 and 17. The issue is that the gvm-setup will look for postgresql on port 5432, but the postgresql versions start getting assigned            ports starting at 5432 (meaning version 16 is taking up that 5432 slot. 
+
+      To update this, we need to go into the respective configuration files of versions 16/17 and change the port numbers manually.
+
+      ```bash
+      cd /etc/postgresql/16/main
+      sudo nano postgresql.conf
+      ```
+      ![image](https://github.com/user-attachments/assets/8d828d8d-e4ea-4020-8413-6017284fa294)
+
+      Change v16's configuration file to port **5433**.
+   
+      Then, run the same respective commands for v17 and ensure port = **5432**.
+
+      Once done, you should now be able to run sudo gvm-setup.
+
+   
+5. Run OpenVAS service and check to see if running
 
       ```bash
       sudo gvm-start
       sudo gvm-check-setup
       ```
 
-5. Before proceeding to the web interface of Greenbone OpenVAS, we will need the ip address of our linux machine, so use the following command to retrieve it:
+6. Before proceeding to the web interface of Greenbone OpenVAS, we will need the ip address of our linux machine, so use the following command to retrieve it:
 
       ```bash
       hostname -I
@@ -156,7 +187,7 @@ We’ll use an intentionally insecure Windows 10 VM for testing, simulating comm
 
    ![image](https://github.com/user-attachments/assets/05bb71a8-c97d-4940-a2fc-1f2efde64cf2)
 
-6. With your IP address, enter the following url into your **host machine**
+7. With your IP address, enter the following url into your **host machine**
 
    ```
    https://<Linux_VM_IP>:9392
