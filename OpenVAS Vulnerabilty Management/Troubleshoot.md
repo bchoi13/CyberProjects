@@ -1,5 +1,8 @@
 # **Troubleshooting**: 
 
+_This page was originally made when I first started this project which I attempted on an Ubuntu distribution. Unfortunately I came to the conclusion that Greenbone OpenVAS open source files conflicted with the Ubuntu system which led me down a rabbit hole of error after error, thus making the change to Kali. 
+These are personal notes on my troubleshooting adventure._
+
 If you are unable to retrieve the web server, like I was the first time, below are the troubleshooting steps I did in order:
      
      1. Ensure Linux VM's firewall settings are not getting in the way.
