@@ -8,7 +8,7 @@ We’ll use an intentionally insecure Windows 10 VM for testing, simulating comm
 ## Prerequisites
 - VirtualBox installed on your machine. [Download here](https://www.virtualbox.org/wiki/Downloads)
 - Windows 10 VM with VirtualBox Guest Additions (or an unpatched/standard Windows 10 installation). [Download here](https://www.microsoft.com/en-us/software-download/windows10)
-- Linux system (Ubuntu used for this specific project) where OpenVAS will be installed. [Download here](https://ubuntu.com/download/desktop)
+- Linux system (Kali used for this specific project) where OpenVAS will be installed. [Download here]([https://ubuntu.com/download/desktop](https://www.kali.org/get-kali/#kali-virtual-machines))
 - Basic understanding of networking (especially IP addresses).
 - Internet access for downloading packages and updates.
 
@@ -29,22 +29,32 @@ We’ll use an intentionally insecure Windows 10 VM for testing, simulating comm
 ![image](https://github.com/user-attachments/assets/093301b0-99de-48fd-946e-b2acfd090cb2)
 
 
-## Step 2: Set up Linux Ubuntu VM on Virtual Box
+## Step 2: Set up Linux Kali VM on Virtual Box
 
-1. Install similarly to how we installed Windows.
+1. Use the link above to download the respective Virtualbox Kali Disk Image. 
 
-![image](https://github.com/user-attachments/assets/b51e0f4f-3f5b-4dc8-9325-7a496dd2a276)
+![image](https://github.com/user-attachments/assets/ac876821-76ab-4843-892a-36d4f2355f7a)
 
-2. I went with the below specifications:
-     - Memory: 4GB
-     - CPU: 2
-     - Storage: 25GB
+2. Save the Disk Image down. Open up Virtualbox and create a new VM. Unlike the Windows VM, we will not be using an ISO so leave that field blank. I will name my machine "KaliVuln". Select Type: **Linux** and Subtype: **Debian**. My allocations are listed below. Create a **Virtual Hard Disk Now.** 
 
-3. Start up the Ubuntu VM. Select "Try and install Ubuntu". On the following prompts, just hit next when given availability. Install Ubuntu and use interactive installation. Select Default selection of apps. Skip recommended proprietary software. Erase disk and install Ubuntu.
-   Below are the credentials I am going with when prompted. Afterwards hit next and install.
-   ![image](https://github.com/user-attachments/assets/3afa7ce5-f7ec-47f4-a149-a7215e841bd8)
+   Memory: 4GB
+   CPU: 3 Cores
+   Storage: 80 GB
 
-4. Restart when prompted
+   ![image](https://github.com/user-attachments/assets/2d0a21c3-ef86-4fd3-a0ea-8fc19ce6de97)
+
+   The Disk Image you downloaded earlier should appear in the list under "Use an existing Virtual Hard Disk File:. If not, click the icon next to the list and find it.
+
+   ![image](https://github.com/user-attachments/assets/94f38c37-2a27-4886-b231-c5a1aec54111)
+   
+
+2. Go to the settings after finishing the VM creation. Enable bidirectional clipboard and drag'n'drop. Next, give yourself 128 MB of video memory under display. Then, go to the motherboard settings under system. Change the boot order to below:
+
+ ![image](https://github.com/user-attachments/assets/d81e426f-2ce0-4eb1-a276-72b3f489804f)
+
+
+3. Start up the Kali VM. If you receive an error you may need to change the file permissions of the disk image. Username = kali / password = kali
+
 
 
 ## Step 3: Configure Windows 10 to be Less Secure. 
