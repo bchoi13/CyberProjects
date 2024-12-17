@@ -141,7 +141,7 @@ We’ll use an intentionally insecure Windows 10 VM for testing, simulating comm
       sudo gvm-setup
       ```
 
-      Note: When attempting to run the setup, I was given an error:
+      **Troubleshoot**: When attempting to run the setup, I was given an error:
       ```bash
       [>] Starting PostgreSQL service
       [-] ERROR: The default PostgreSQL version (16) is not 17 that is required by libgvmd
@@ -178,8 +178,42 @@ We’ll use an intentionally insecure Windows 10 VM for testing, simulating comm
       sudo gvm-start
       sudo gvm-check-setup
       ```
+      
+   **Troubleshoot**: When running the gvm-check-setup command, I received the below error:
+   ```bash
+   WARNING:  database "postgres" has a collation version mismatch
+   DETAIL:  The database was created using collation version 2.38, but the operating system provides version 2.40.
+   HINT:  Rebuild all objects in this database that use the default collation and run ALTER DATABASE postgres REFRESH COLLATION VERSION, or build PostgreSQL with the right library version.
+        ERROR: The Postgresql DB does not exist.
+        FIX: Run 'sudo runuser -u postgres -- /usr/share/gvm/create-postgresql-database'
+   ```
 
-6. Before proceeding to the web interface of Greenbone OpenVAS, we will need the ip address of our linux machine, so use the following command to retrieve it:
+This is due to wrong collation version which needs to be refreshed, as well as a missing gvmd database
+   
+   Do not run the recommended command given. Instead, do the following:
+   
+   1. Open the postgres database
+      ```bash
+      sudo -u postgres psql
+      ```
+
+   2. Refresh collation version for postgres AND template1 (if applicable)
+      ```bash
+      ALTER DATABASE postgres REFRESH COLLATION VERSION;
+      ALTER DATABASE template1 REFRESH COLLATION VERSION
+      ```
+
+   3. Exit the database and confirm the correct version
+      ```bash
+      sudo -u postgres psql -c "SELECT datname, datcollversion FROM pg_database;"
+      ```
+   4. Create the gvmd database once the collation versions are refreshed
+      ```bash
+      sudo runuser -u postgres -- /usr/share/gvm/create-postgresql-database  
+      ```
+
+      
+7. Before proceeding to the web interface of Greenbone OpenVAS, we will need the ip address of our linux machine, so use the following command to retrieve it:
 
       ```bash
       hostname -I
@@ -187,7 +221,7 @@ We’ll use an intentionally insecure Windows 10 VM for testing, simulating comm
 
    ![image](https://github.com/user-attachments/assets/05bb71a8-c97d-4940-a2fc-1f2efde64cf2)
 
-7. With your IP address, enter the following url into your **host machine**
+8. With your IP address, enter the following url into your **host machine**
 
    ```
    https://<Linux_VM_IP>:9392
