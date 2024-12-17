@@ -21,9 +21,10 @@ We’ll use an intentionally insecure Windows 10 VM for testing, simulating comm
    ![image](https://github.com/user-attachments/assets/56bd9041-e6dc-422d-826f-8a918be63781)
 
 3. Allocate memory, processors, and disk space. For this project I am going with 4GB memory and 2 processors. If you have more to spare you can allocate more for a more smooth experience. I will also give myself 80GB of storage, Personally I have tried 50GB before and could not stop getting crashes.
-4. Start the new VM and follow the installation steps. When activating Windows, make sure to select that you do not have a product key. Download WIndows 10 Pro edition and select custom install. The installation will take some time. Continue when everything is loaded.
-5. Install for business use and sign in using domain. Set up a simple password, "password", and continue. Turn off privacy settings (optional) and skip all other prompts.
-6. (Optional) Make a more seamless user experience for this VM. Insert Guest Additions CD Image. FInd and execute the file below. 
+4. Go to network settings and add a 2nd adapter attached to host-only adapter. This will give us an IP address we can use for vulnerability scanning later. 
+5. Start the new VM and follow the installation steps. When activating Windows, make sure to select that you do not have a product key. Download WIndows 10 Pro edition and select custom install. The installation will take some time. Continue when everything is loaded.
+6. Install for business use and sign in using domain. Set up a simple password, "password", and continue. Turn off privacy settings (optional) and skip all other prompts.
+7. (Optional) Make a more seamless user experience for this VM. Insert Guest Additions CD Image. FInd and execute the file below. 
 
 ![image](https://github.com/user-attachments/assets/0df3cc70-bf86-4bb7-abee-717ba4234656) 
 ![image](https://github.com/user-attachments/assets/093301b0-99de-48fd-946e-b2acfd090cb2)
@@ -52,15 +53,16 @@ We’ll use an intentionally insecure Windows 10 VM for testing, simulating comm
 
  ![image](https://github.com/user-attachments/assets/d81e426f-2ce0-4eb1-a276-72b3f489804f)
 
+3. Go to network settings for the VM and add a 2nd adapter attached to "Host-only Adapter"
 
-3. Start up the Kali VM. If you receive an error you may need to change the file permissions of the disk image. Username = kali / password = kali
+4. Start up the Kali VM. If you receive an error you may need to change the file permissions of the disk image. Username = kali / password = kali
 
 
 
 ## Step 3: Configure Windows 10 to be Less Secure. 
 
 1. Disable Windows Security
-   - Go back to your Windows VM. Before proceeding, ensure your VM is using NAT for external communication. Since we intentionally make VM a security risk, we want to makee sure it is as isolated from our internal network as possible. Although VirtualBox is a pretty safe application when it comes to this risk, we want to avoid VM escapes as much as we can.
+   - Go back to your Windows VM. Before proceeding, ensure your VM is using NAT for external communication. Since we intentionally make VM a security risk, we want to makee sure it is as isolated from our internal network as possible. Although VirtualBox is a pretty safe application when it comes to this risk, we want to avoid VM escapes and other threats as much as we can.
      
      ![image](https://github.com/user-attachments/assets/c90c2f1b-3484-4ef5-9903-d3d53d53eda4)
    - Start the VM again. Search Windows Security and go to Firewall and Network Protection. Select each network and disable Microsoft Defender firewall.
@@ -212,16 +214,39 @@ This is due to wrong collation version which needs to be refreshed, as well as a
       sudo runuser -u postgres -- /usr/share/gvm/create-postgresql-database  
       ```
 
+      - Note: You may also need to create a user account for OpenVAS. Just follow the instructions outputted from the Linux Terminal. 
       
-7. Before proceeding to the web interface of Greenbone OpenVAS, we will need the ip address of our linux machine, so use the following command to retrieve it:
+7. Test the web interface locally by opening Firefox and entering the URL: **https://127.0.0.1:9392**. You should receive a warning that you can advance from and end up in a login page. 
+
+
+8. Before proceeding to the web interface of Greenbone OpenVAS for our host machine, we will need the ip address of our linux machine, so use the following command to retrieve it:
 
       ```bash
       hostname -I
       ```
+      or
+      ```bash
+      ifconfig
+      ```
 
-   ![image](https://github.com/user-attachments/assets/05bb71a8-c97d-4940-a2fc-1f2efde64cf2)
+   The IP we want to use is the one that looks like 192.168.X.X. If you are missing this then you need to exit the VM and add the second network adapter via Virtualbox settings.      
 
-8. With your IP address, enter the following url into your **host machine**
+9. Configure your VM IP to be listening on port 9392. Use the following command:
+
+   ```bash
+   sudo gsad --listen=192.168.X.X --port=9392
+   ```
+
+10. Verify that the port is being listened on.
+
+   ```bash
+   sudo netstat -tuln | grep 9392
+   ```
+ 
+   ![image](https://github.com/user-attachments/assets/ec02b978-bd65-4b0d-a04e-da6768b256c0)
+
+
+11. With your IP address, enter the following url into your **host machine**. Login from there.
 
    ```
    https://<Linux_VM_IP>:9392
@@ -229,9 +254,13 @@ This is due to wrong collation version which needs to be refreshed, as well as a
 
 
 
+## Step 5: Run a Vulnerability Scan
 
+1. Go to Configuration -> Targets, select "add target".
 
+![image](https://github.com/user-attachments/assets/1ffc1c38-b948-4ebd-90ea-7044b6d182c7)
 
+2. Fill in
 
 
 
