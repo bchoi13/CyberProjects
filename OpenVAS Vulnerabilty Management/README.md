@@ -260,10 +260,67 @@ This is due to wrong collation version which needs to be refreshed, as well as a
 
 ![image](https://github.com/user-attachments/assets/1ffc1c38-b948-4ebd-90ea-7044b6d182c7)
 
-2. Fill in
+2. Fill in the necessary fields. Mine looks like this:
+   
+![image](https://github.com/user-attachments/assets/ad2cdf09-33ff-4acc-9e3a-9840b022685b)
+
+   * Target ports were T: 1-500 and U: 1-500
+
+3. Create a task using this target. Scans -> Tasks -> New Task
+
+4. Fill in the necessary fields. Mine looks like this:
+
+![image](https://github.com/user-attachments/assets/206689df-28ca-4bd7-825b-d201c933aeae)
 
 
+   **Troubleshoot**: Originally when attempting to create a task, my scan-config field was greyed-out and I was given an error when trying to add the task. To fix, follow the below terminal sequence (OpenVAS reinstallation):
 
+   ```bash
+   sudo apt-get update
+
+   sudo apt-get dist-upgrade
+
+   sudo apt-get remove --auto-remove openvas
+
+   sudo apt-get remove --auto-remove gvm
+
+   sudo apt install gvm -y
+
+   sudo gvm-setup
+
+   sudo gvm-feed-update
+
+   sudo gvm-start
+
+   ```
+
+Reinstalling OpenVAS solved the issue. 
+
+
+5. Start the scan once the task has been completed and monitor. Note that depending on the amount of ports you scan and your system specifications, it may take a while.
+
+
+## Step 6: Analysis
+
+1. Once the scan is complete you should be given a report (click on the date under the "last report" column.
+
+![image](https://github.com/user-attachments/assets/a06feefe-7514-4dc1-b3d0-b1150a64ee83)
+
+You will see that I have two tasks set up. This is because for my first task I mistakeningly set my target ports to a redundant range so nothing of value was scanned. 
+
+2. You can see that the Windows System, which we intentionally made vulnerable, is at a severe risk. When you open the report, you can view different tabs that show a different category of risks to your system. For example, if you navigate to the ports tab, you may see the below:
+
+![image](https://github.com/user-attachments/assets/21e28d5f-8bd9-4c74-b051-5917edab913c)
+
+Why are ports 80 and 443 at risk? Because these two are for HTTP / HTTPS, respectively, and we have a vulnerable web server configured on our machine. 
+
+You may also see this at the bottom of your results:
+
+![image](https://github.com/user-attachments/assets/791d405f-b872-4b39-864a-a6c5a9632b6f)
+
+This message states that the VM responded to an ICMP request. We are able to realize that the firewall is off / settings need to be configured as an active firewall should be blocking ICMP requests. 
+
+![image](https://github.com/user-attachments/assets/cb84e7f8-19ee-4c99-8245-1b108d997642)
 
 
 
