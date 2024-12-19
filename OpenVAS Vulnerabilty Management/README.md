@@ -91,7 +91,7 @@ We’ll use an intentionally insecure Windows 10 VM for testing, simulating comm
       
    ![image](https://github.com/user-attachments/assets/1706c19f-eec4-4ac0-87af-2b8869eccd62)
 
-   - Create the Database: Open the file with notepad. We will need to use below settings to create a databse with MySQL on XAMPP
+   - Create the Database: Open the file with notepad. We will need to use below settings to create a database with MySQL on XAMPP
      ``` txt
      $_DVWA[ 'db_database' ] = getenv('DB_DATABASE') ?: 'dvwa';
      $_DVWA[ 'db_user' ]     = getenv('DB_USER') ?: 'dvwa';
@@ -321,6 +321,50 @@ You may also see this at the bottom of your results:
 This message states that the VM responded to an ICMP request. We are able to realize that the firewall is off / settings need to be configured as an active firewall should be blocking ICMP requests. 
 
 ![image](https://github.com/user-attachments/assets/cb84e7f8-19ee-4c99-8245-1b108d997642)
+
+
+## Step 7: Reconfigure security settings on Windows VM and rerun vulnerability scan.
+
+1. Let us now resecure our Windows VM so that we don't accidentally forget we have an easily accessible virtual machine running on our device. First, re-renable the Domain, private, and public firewalls. This page can be found by following the steps earlier in this document. 
+
+![image](https://github.com/user-attachments/assets/5ffdfba0-f1bc-492d-ac3f-21737e49b292)
+
+2. Remove DVWA
+
+   1. Delete the DVWA folder in the following path: C:\xampp\htdocs
+  
+      ![image](https://github.com/user-attachments/assets/ae44def8-44e5-4750-b91d-aa1974fba1e4)
+
+   2. Delete the DVWA database that was created earlier. Click on admin next to MySQL on the XAMPP Control Panel. Go to the dvwa database and on the operations tab, select drop.
+  
+      ![image](https://github.com/user-attachments/assets/fb7455b1-01c6-4b83-ba00-a39ff44d303b)
+
+
+   3. Stop Apache and MySQL on XAMPP
+
+
+3. Rerun the same task as before on OpenVAS. Note the differences seen on the VM, there should be signifcantly less vulnerabilities now. 
+
+   Note: You must ensure you are logged into the Kali VM / whatever machine OpenVAS was installed on. Additionally, if you logged off previously, you may need to configure the VM IP to be listening on port 9392 again if using the web server on the host machine. 
+
+   Note: If firewall is enabled on the Windows VM, we will need to make an exception for ICMP requests. Otherwise, OpenVAS will be unable to scan the system.
+
+   ![image](https://github.com/user-attachments/assets/8f42ef93-8f51-4ca8-ab13-8e2b1a6c084e)
+
+   ![image](https://github.com/user-attachments/assets/7a525650-ae79-4777-9908-7141de0140d7)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
