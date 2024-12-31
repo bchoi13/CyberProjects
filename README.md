@@ -38,6 +38,11 @@ Skills Demonstrated:
   - Cybersecurity: Hands-on experience in identifying, analyzing, and mitigating security threats.
   - Hacking (Privilege Escalation, Hash decoding, Shell / Reverse shells, Metsaploit, Burpsuite)
 
+## OpenVAS Vulnerability Scanning in a Virtualized Environment
+Tools Used: VirtualBox, Windows 10 ISO, Kali Linux, Greenbone OpenVas, DVWA, WAPP. XAMPP
+  - Deployed a Windows 10 VM with disabled firewall and DVWA for web application vulnerabilities.
+  - Successfully detected vulnerabilities like disabled firewall, exposed services (RDP, SMB), and DVWA weaknesses.
+  - Demonstrated the effectiveness of vulnerability management tools in identifying misconfigurations.
 
 ## 📖 Certifications
 - Google Cybersecurity Professional Certificate (Coursera)
