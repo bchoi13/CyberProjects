@@ -154,6 +154,7 @@ Final result of logical map
 ---
 
 Problem: DHCP Failure on endpoint leading to APIPA assigned IP address and inability to reach external network
+
 Solution: Raise the maximum number of users on DHCP settings on Wireless Router from 2 to 6. 
 
 ![image](https://github.com/user-attachments/assets/cb682a38-0ad6-4dcf-ac5d-cc13d92b8931)
