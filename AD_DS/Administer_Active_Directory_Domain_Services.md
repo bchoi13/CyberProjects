@@ -7,7 +7,7 @@ However, there are key differences, including the fact that Microsoft's project 
 Software tools you will need:
 
   1. Oracle VirtualBox                   [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
-  2. WWindows 2022 Server Edition ISO    [Windows 2022 Server Edition](https://www.microsoft.com/en-us/evalcenter/download-windows-server-2022)
+  2. Windows 2022 Server Edition ISO    [Windows 2022 Server Edition](https://www.microsoft.com/en-us/evalcenter/download-windows-server-2022)
   3. WIndows 10 ISO                      [Windows 10](https://www.microsoft.com/en-us/software-download/windows10)
 
 
