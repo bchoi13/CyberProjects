@@ -36,7 +36,7 @@ Let's Get Started!
 # Step 2: Set up your network IP addresses
 
 1. Before we set up our IP addresses let's go ahead and rename the PC. Settings -> About -> Rename this PC -- "TAILWIND-DC1" -- Reboot
-2. After the cVM reboots, Go to Network settings and "Change adapter options"
+2. After the VM reboots, Go to Network settings and "Change adapter options"
 
 * You will notice that there are two ethernet options. One will be our External network and one will be internal. You can double click on these and view details. Whichever one has the Autoconfigured IPv4 (169.X.X.X) is going to be your INTERNAL network. You can rename these connections appropriately 
 					(i.e. external / internal)
