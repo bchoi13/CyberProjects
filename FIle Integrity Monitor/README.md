@@ -71,14 +71,6 @@ The script is designed to be modular and easily customizable:
 
 Contributions and feedback are welcome! If you encounter issues or have suggestions for improvement, feel free to open an issue or submit a pull request.
 
-## License
-This project is licensed under the MIT License. Feel free to use, modify, and distribute this script as needed.
-
-
-
-Author: [Brian Choi]
-
-Contact: [bchoi13@gmail.com]
 
 
    
