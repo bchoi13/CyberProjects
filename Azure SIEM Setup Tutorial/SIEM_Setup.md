@@ -91,7 +91,7 @@ When adding the new inbound rule, the options to change are:
 
 # Step 4: Log into the VM using Remote Desktop and view logs
 
-1. Search Remote Desktop Connection in your local machine (VNC for Mac/Limux machines)
+1. Search Remote Desktop Connection in your local machine (VNC for Mac/Linux machines)
 2. Go to the Virtual Machines page on Azure. In the Overview section, copy the Public IP address of your VM and paste onto the Remote Desktop Connection prompt.
 3. Click "more choices" when signing in and use the credentials you established earlier to login. 
 
