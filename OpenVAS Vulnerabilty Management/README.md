@@ -62,7 +62,7 @@ We’ll use an intentionally insecure Windows 10 VM for testing, simulating comm
 ## Step 3: Configure Windows 10 to be Less Secure. 
 
 1. Disable Windows Security
-   - Go back to your Windows VM. Before proceeding, ensure your VM is using NAT for external communication. Since we intentionally make VM a security risk, we want to makee sure it is as isolated from our internal network as possible. Although VirtualBox is a pretty safe application when it comes to this risk, we want to avoid VM escapes and other threats as much as we can.
+   - Go back to your Windows VM. Before proceeding, ensure your VM is using NAT for external communication. Since we intentionally make VM a security risk, we want to make sure it is as isolated from our internal network as possible. Although VirtualBox is a pretty safe application when it comes to this risk, we want to avoid VM escapes and other threats as much as we can.
      
      ![image](https://github.com/user-attachments/assets/c90c2f1b-3484-4ef5-9903-d3d53d53eda4)
    - Start the VM again. Search Windows Security and go to Firewall and Network Protection. Select each network and disable Microsoft Defender firewall.
