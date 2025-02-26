@@ -126,7 +126,7 @@ We’ll use an intentionally insecure Windows 10 VM for testing, simulating comm
 
    ## Step 4: Install OpenVAS into Linux VM
 
-1. Open up Terminal in the Ubuntu VM. Ensure your system is up to date.
+1. Open up Terminal in the Kali VM. Ensure your system is up to date.
    
       ```bash
       sudo apt update && sudo apt upgrade -y
