@@ -1,6 +1,6 @@
 # Administer Active Directory Domain Services
 
-Below are the step by step instructions on how you can set up an Active Directory domain, a domain host, an a user as an example. Some of these instructions are derived off of Microsoft's Active Directory Guided Project, as well as Josh Madakor's youtube guide on setting up Active Directory in homelab, hence the similar naming convention. 
+Below are the step by step instructions on how you can set up an Active Directory domain, a domain host, and a user as an example. Some of these instructions are derived off of Microsoft's Active Directory Guided Project, as well as Josh Madakor's youtube guide on setting up Active Directory in homelab, hence the similar naming convention. 
 
 However, there are key differences, including the fact that Microsoft's project requires the use of Hyper-V (which I don't have access to since I own Windows Home Edition).
 
