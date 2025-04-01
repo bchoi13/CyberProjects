@@ -197,8 +197,9 @@ Hit next and finish
    			IPv4: 172.16.0.100
 			Subnet Mask: 255.255.255.0
 			Default Gateway: 172.16.0.01
-	Also ping any random website to ensure you have external connection (ex. ping 8.8.8.8). No packets lost is a good sign
-	If these do not work, you may need to go back to step 6 and ensure everything was followed accordingly. If edits are made, then you will need to enter "ipconfig /renew" on the TAILWIND-MBR1 machine for changes to take place.
+	Also ping any random website to ensure you have external connection (ex. ping 8.8.8.8). No packets lost is a good sign.
+	
+ 	If these do not work, you may need to go back to step 6 and ensure everything was followed accordingly. If edits are made, then you will need to enter "ipconfig /renew" on the TAILWIND-MBR1 machine for changes to take place.
 
 2. Rename this PC and assign to domain
 		Windows Settings -> About -> Rename this PC (Advanced) *under related settings* -> change
