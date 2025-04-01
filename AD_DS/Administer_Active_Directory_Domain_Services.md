@@ -158,7 +158,8 @@ Hit next and finish
 2. Search for and open up Windows Powershell ISE and ensure you run as administrator. 
 			At the top, go File -> Open -> AD_DS -> 1_CREATE_USERS.ps1
 3. Enable script executions 
-			Enter the following:   "Set-ExecutionPolicy Unrestricted" and click "Yes to all"
+
+   Enter the following:   "Set-ExecutionPolicy Unrestricted" and click "Yes to all"
 		
 		For reference, the script does the following:	
 			Line 2 -- Set the password for all users to "Password1" 
@@ -167,10 +168,10 @@ Hit next and finish
 			Line 7 -- Creates a new OU,"_USERS", and disables protection from accidental deletion, which we don't need in a lab, but would definitely want to have in a production environment. 
 			Line 9-12 -- Set the username for each line / user to first initial of first name and full last name. Ex: John Brown = Jbrown
 
-4. Before running the script, we need to change directory of powershell to the folder that contains the script. I moved the extracted folder to my documents, so the command would look like this
+5. Before running the script, we need to change directory of powershell to the folder that contains the script. I moved the extracted folder to my documents, so the command would look like this
 			cd C:\users\dcontroller\Documents\AD_DS
-5. Hit the play button on the top to run the script.
-6. Once the script completes, let's double check the active directory. 
+6. Hit the play button on the top to run the script.
+7. Once the script completes, let's double check the active directory. 
 
    			Active Directory Domain Users and Computers -> tailwindtraders.internal -> _USERS
 			We should see all the applicable usernames of the users we just imported. 
