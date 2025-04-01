@@ -106,7 +106,7 @@ Hit next and finish
 
 
 # Step 5: Install a RAS/NAT (Remote Access Service / Network Address Translation) Gateway
-	*This step is necessary for clients to be connected to our internal network as well as communicate to the external network (connect to the 	internet).
+	*This step is necessary for clients to be connected to our internal network as well as communicate to the external network (connect to the internet).
 
 1. Once again, click "Add roles and features" and keep hitting next until you get to Server Roles
 2. Check off "Remote Access" and hit next until you reach Role Services. Here you will check off "routing" and click add features. Keep hitting next and install. This will, once again, take some time. 
