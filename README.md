@@ -39,7 +39,7 @@ Tools Used: VirtualBox, Windows 10 ISO, Kali Linux, Greenbone OpenVas, DVWA, WAP
   - Demonstrated the effectiveness of vulnerability management tools in identifying misconfigurations.
 
 
-Skills Demonstrated:
+## Skills Demonstrated:
   - System Administration: Proficiency in managing Windows and Linux systems.
   - Active Directory: Setting up domains, managing users, and applying group policies.
   - Networking: Basic configuration of firewalls, analyzing traffic, and troubleshooting.
