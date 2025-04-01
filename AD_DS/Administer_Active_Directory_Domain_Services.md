@@ -208,10 +208,12 @@ Hit next and finish
 		When prompted for Username and password, you will need use your domain controller account. Here are the example credentials:
 			Username: dcontroller
 			Password: Pa55word
-		Restart computer when prompted
+   
+	Restart computer when prompted
 	
-3. Let's confirm this domain assignment on TAILWIND-DC1. Go back to the DHCP list and find Address Leases. You should see TAILWIND-MBR1 as a leased computer!
-		Same thing with Active Directory. Go to Active Directory Users and Computers. Under the Computers folder, you should see TAILWIND-MBR1.
+4. Let's confirm this domain assignment on TAILWIND-DC1. Go back to the DHCP list and find Address Leases. You should see TAILWIND-MBR1 as a leased computer!
+
+Same thing with Active Directory. Go to Active Directory Users and Computers, and under the Computers folder, you should see TAILWIND-MBR1.
 
 	
 
