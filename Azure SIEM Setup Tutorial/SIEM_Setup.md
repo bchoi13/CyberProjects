@@ -26,7 +26,7 @@ Software tools you will need:
 Let's get started!
 
 
-# Step 1: Create Virtual Machine on Azure
+# Step 1: Create virtual machine on Azure
 
 1. Once you complete the Azure signup, on the home page search for "Virtual Machines". Once on the page, click on "Create" and select the "Azure Virtual Machines" option
 2. On the creation page, my input is as follows:
@@ -64,7 +64,7 @@ When adding the new inbound rule, the options to change are:
   While the VM deployment is in progress, let's add a Log analytics Workspace in Azure. Search for this similarly to how we found the VM page. 
   * We are adding this tool in order to review any event logs from the VM as well as build custom logs that include geographical traits which can help pinpoint the source of attacks. *
 
-1. Create Log analytics workspace. Below are my inputs for the Basic tab:
+1. Create Log Analytics Workspace. Below are my inputs for the **Basic** tab:
 
        Resource group: Machine1_group
        Name: Machine1Logs
@@ -109,7 +109,7 @@ When adding the new inbound rule, the options to change are:
 
 
 
-# Step 5: Turn off Firewall in VM
+# Step 5: Turn off firewall in VM
 
 1. In the VM, search for Windows Defender Firewall -> Advanced Settings -> Windows Defender Firewall Properties (Under Overview).
 2. Set firewall state to off for all tabs
@@ -153,7 +153,7 @@ When adding the new inbound rule, the options to change are:
 
 
 
-# Step 8: Create Custom Parameters in our Log file in Azure workspace
+# Step 8: Create Custom Parameters in our log file in Azure workspace
          *Looking at the table generated from running the script on the Log Analytics Workspaces page, you can see the multitude of data under the "RawData" column. In this step we will separate each identifiable type into its own column.
 
 1. Copy the script in this link (or view the codespace in this repo) into the query box of the page. Alter the first line as necessary if you named the log file differently. Run the script and you will see the table is much prettier in appearance for us, showcasing country, state, source IP, username, and more important data figures.
